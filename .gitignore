@@ -1,0 +1,30 @@
+# IDEs & OS files
+.vscode/
+.idea/
+.DS_Store
+
+# Frontend / Node.js
+**/node_modules/
+**/.next/
+**/out/
+**/build/
+.env*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Backend / Python / Django
+**/venv/
+**/.venv/
+**/env/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+*.sqlite3-journal
+**/media/
+**/staticfiles/
+*.log
+
+# Docker
+docker-compose.override.yml
