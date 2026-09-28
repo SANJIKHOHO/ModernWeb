@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -12,6 +13,17 @@ class ProductListView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
+
+    def list(self, request, *args, **kwargs):
+        data = cache.get('products_list')
+        if data is None:
+            print("CACHE MISS: querying database")
+            serializer = self.get_serializer(self.get_queryset(), many=True)
+            data = list(serializer.data)
+            cache.set('products_list', data, 60)
+        else:
+            print("CACHE HIT: served from Redis")
+        return Response(data)
 
 
 class CartView(APIView):
