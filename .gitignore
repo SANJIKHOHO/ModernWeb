@@ -28,3 +28,7 @@ yarn-error.log*
 
 # Docker
 docker-compose.override.yml
+
+
+/media/
+/static/
