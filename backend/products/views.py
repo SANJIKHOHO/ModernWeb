@@ -1,4 +1,5 @@
 from django.core.cache import cache
+from django.db import transaction
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -70,6 +71,7 @@ class OrderView(APIView):
         orders = Order.objects.filter(user=request.user).order_by('-created_at')
         return Response(OrderSerializer(orders, many=True).data)
 
+    @transaction.atomic
     def post(self, request):
         cart, _ = Cart.objects.get_or_create(user=request.user)
         items = cart.items.all()
