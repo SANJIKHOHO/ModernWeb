@@ -17,22 +17,22 @@ export default function LoginPage() {
       await login(name);
       router.push('/');
     } catch {
-      setError('Не удалось войти');
+      setError('Could not log in');
     }
   }
 
   return (
     <form className="form" onSubmit={handleSubmit}>
-      <h2>Вход</h2>
+      <h2>Log <strong>in</strong></h2>
       <input
         type="text"
-        placeholder="Введи своё имя"
+        placeholder="Enter your name"
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
       />
       {error && <p className="error">{error}</p>}
-      <button type="submit">Войти</button>
+      <button type="submit">Log in</button>
     </form>
   );
 }

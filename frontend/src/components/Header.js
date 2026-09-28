@@ -1,27 +1,41 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 
 export default function Header() {
   const { name, isAuthenticated, logout } = useAuth();
+  const pathname = usePathname();
+
+  const navLink = (href, label) => (
+    <Link href={href} className={pathname === href ? 'active' : ''}>
+      {label}
+    </Link>
+  );
 
   return (
     <header className="header">
-      <Link href="/" className="logo">E-Commerce</Link>
+      <Link href="/" className="logo">
+        E-Commerce<span>.</span>
+      </Link>
+
       <nav className="nav">
-        <Link href="/">Товары</Link>
-        {isAuthenticated && <Link href="/cart">Корзина</Link>}
-        {isAuthenticated && <Link href="/orders">История</Link>}
+        {navLink('/', 'Products')}
+        {isAuthenticated && navLink('/cart', 'Cart')}
+        {isAuthenticated && navLink('/orders', 'Orders')}
+      </nav>
+
+      <div className="header-right">
         {isAuthenticated ? (
           <>
-            <span className="user-name">{name}</span>
-            <button onClick={logout}>Выйти</button>
+            <span className="user-pill">{name}</span>
+            <button className="btn-ghost" onClick={logout}>Log out</button>
           </>
         ) : (
-          <Link href="/login">Войти</Link>
+          <Link href="/login" className="btn-pill">Log in</Link>
         )}
-      </nav>
+      </div>
     </header>
   );
 }

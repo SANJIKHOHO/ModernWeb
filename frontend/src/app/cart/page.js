@@ -27,32 +27,31 @@ export default function CartPage() {
 
   async function handleCheckout() {
     await checkout();
-    alert('Заказ оформлен');
     router.push('/orders');
   }
 
-  if (loading || authLoading) return <p>Загрузка...</p>;
+  if (loading || authLoading) return <p className="muted">Loading...</p>;
 
   const total = items.reduce((sum, i) => sum + i.product.price * i.quantity, 0);
 
   return (
     <div>
-      <h2>Корзина</h2>
-      {items.length === 0 && <p>Корзина пуста</p>}
+      <h2>Your <strong>cart</strong></h2>
+      {items.length === 0 && <p className="muted">Your cart is empty</p>}
       {items.map((item) => (
         <div className="cart-item" key={item.id}>
           <img src={imageUrl(item.product.picture)} alt={item.product.title} />
           <div>
             <p>{item.product.title}</p>
-            <p>{item.product.price} сом × {item.quantity}</p>
+            <p className="muted">{item.product.price} KGS × {item.quantity}</p>
           </div>
-          <button onClick={() => handleRemove(item.id)}>Удалить</button>
+          <button className="btn-ghost" onClick={() => handleRemove(item.id)}>Remove</button>
         </div>
       ))}
       {items.length > 0 && (
         <div className="cart-footer">
-          <p>Итого: {total} сом</p>
-          <button onClick={handleCheckout}>Купить</button>
+          <p>Total: <span>{total.toFixed(2)} KGS</span></p>
+          <button onClick={handleCheckout}>Buy</button>
         </div>
       )}
     </div>

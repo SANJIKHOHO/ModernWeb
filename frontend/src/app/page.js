@@ -50,7 +50,7 @@ export default function HomePage() {
     setTimeout(() => setAddingId(null), 300);
   }
 
-  if (loading) return <p>Загрузка...</p>;
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="grid">
@@ -58,15 +58,15 @@ export default function HomePage() {
         <div className="card" key={p.id}>
           <img src={imageUrl(p.picture)} alt={p.title} />
           <h3>{p.title}</h3>
-          <p>{p.price} сом</p>
+          <p>{p.price} KGS</p>
           {quantities[p.id] > 0 && (
-            <span className="in-cart-badge">В корзине: {quantities[p.id]}</span>
+            <span className="in-cart-badge">In cart: {quantities[p.id]}</span>
           )}
           <button
             className={addingId === p.id ? 'btn-pop' : ''}
             onClick={() => handleAdd(p.id)}
           >
-            В корзину
+            Add to card
           </button>
         </div>
       ))}
