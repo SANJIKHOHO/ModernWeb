@@ -12,5 +12,6 @@ python-decouple==3.8
 python-dotenv==1.2.3
 pytz==2026.4
 PyYAML==6.0.3
+redis==8.1.0
 sqlparse==0.6.0
 uritemplate==4.2.0
